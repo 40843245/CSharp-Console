@@ -40,49 +40,45 @@ namespace ConnectionDatabaseProject1
         static void Main(string[] args)
         {
 
-          // an instance that stores query result from Table or Views in SQL Server.
+          		// an instance that stores query result from Table or Views in SQL Server.
     			DataTable data_dt = new DataTable();
-    			StringBuilder myself_dataStr = new StringBuilder();
-    			StringBuilder table_dataStr = new StringBuilder();
 
-    			#region 抓取DB 資料設定
+    			#region fetch data from database.
 
     			// your connection string
     			String connectionString = "Data Source=<IpAddress>;Initial Catalog=<DatabaseName>;Persist Security Info=True;User ID=<UserId>;Password=<Password>";
 
 			using (SqlConnection conn = new SqlConnection(connectionString))
 			{
-				SqlCommand sqlCmd = null;
-
 				try
 				{
-					// 確認DB連線是否開啟
+					// check the connection is opened.
 					if (conn.State != ConnectionState.Open)
 					{
 						conn.Open();
 					}
 
-					sqlCmd = new SqlCommand();
+					SqlCommand sqlCmd = new SqlCommand();
 					SqlDataAdapter sda = new SqlDataAdapter();
 
-          // your sql command string.
-          string sql_tmp = "SELECT　* FROM Table1";
+					// your sql command string.
+          				string sql_tmp = "SELECT　* FROM Table1";
 					
 					sqlCmd.CommandText = sql_tmp;
 
-          // assign the Connection of sql command instance.
+          				// assign the Connection of sql command instance.
 					sqlCmd.Connection = conn;
 
-          // 
+          				// determine what query result of command (a `SqlCommand` instance) will be stored at. 
 					sda.SelectCommand = sqlCmd;
 
-          // fill the query result from sda into `data_dt`.
+          				// fill the query result from sda into `data_dt` (a DataTable instance).
 					sda.Fill(data_dt);
 
 					#endregion
 
   					#region 有資料 
-  
+  					// read data from query result.
   					for (int a = 0; a < data_dt.Rows.Count; a++)
   					{
   
@@ -101,7 +97,7 @@ namespace ConnectionDatabaseProject1
 				}
 				catch (Exception ex)
 				{
-					// 確認DB連線是否關閉
+					// check the connection is closed.
 					if (conn.State != ConnectionState.Closed)
 					{
 						conn.Close();
