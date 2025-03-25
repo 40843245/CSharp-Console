@@ -43,7 +43,7 @@ namespace ConnectionDatabaseProject1
           		// an instance that stores query result from Table or Views in SQL Server.
     			DataTable data_dt = new DataTable();
 
-    			#region fetch data from database.
+    			#region create an connection and fetch data from database.
 
     			// your connection string
     			String connectionString = "Data Source=<IpAddress>;Initial Catalog=<DatabaseName>;Persist Security Info=True;User ID=<UserId>;Password=<Password>";
@@ -52,37 +52,39 @@ namespace ConnectionDatabaseProject1
 			{
 				try
 				{
-					// check the connection is opened.
-					if (conn.State != ConnectionState.Open)
-					{
-						conn.Open();
-					}
+					#region fetch data from database.
 
-					SqlCommand sqlCmd = new SqlCommand();
-					SqlDataAdapter sda = new SqlDataAdapter();
-
-					// your sql command string.
-          				string sql_tmp = "SELECT　* FROM Table1";
-					
-					sqlCmd.CommandText = sql_tmp;
-
-          				// assign the Connection of sql command instance.
-					sqlCmd.Connection = conn;
-
-          				// determine what query result of command (a `SqlCommand` instance) will be stored at. 
-					sda.SelectCommand = sqlCmd;
-
-          				// fill the query result from sda into `data_dt` (a DataTable instance).
-					sda.Fill(data_dt);
+						// check the connection is opened.
+						if (conn.State != ConnectionState.Open)
+						{
+							conn.Open();
+						}
+	
+						SqlCommand sqlCmd = new SqlCommand();
+						SqlDataAdapter sda = new SqlDataAdapter();
+	
+						// your sql command string.
+	          				string sql_tmp = "SELECT　* FROM Table1";
+						
+						sqlCmd.CommandText = sql_tmp;
+	
+	          				// assign the Connection of sql command instance.
+						sqlCmd.Connection = conn;
+	
+	          				// determine what query result of command (a `SqlCommand` instance) will be stored at. 
+						sda.SelectCommand = sqlCmd;
+	
+	          				// fill the query result from sda into `data_dt` (a DataTable instance).
+						sda.Fill(data_dt);
 
 					#endregion
 
-  					#region 有資料 
-  					// read data from query result.
-  					for (int a = 0; a < data_dt.Rows.Count; a++)
-  					{
-  
-  					}
+  					#region read data from query result.
+
+						for (int a = 0; a < data_dt.Rows.Count; a++)
+	  					{
+	  
+	  					}
 
   					#endregion
 
